@@ -58,70 +58,46 @@
 // }
 
 //PART 3: FEELING LOOPY
-    /* Write a script that accomplishes the following:
-    Loop through the characters of a given CSV string.
-    Store each “cell” of data in a variable.
-    When you encounter a comma, move to the next cell.
-    When you encounter the “\r\n” sequence, move to the next “row.”
-    Log each row of data. You do not need to format the data.*/
+    /* Write a script that loops through the characters of a given CSV string and log each row of data.*/
 
+// main assignment 
 let demoData = `ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s Assistant,26`;
+dataTable(demoData);
+
+// test data
+let testData = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`;
+dataTable(testData);
+
+function dataTable(data) {
 let table = [];
 let row = [];
 let cell = ``;
-
-// get words in row [1]
-// for (let i in demoData) {
-            
-//     if (demoData[i] !== `\n`) {
-//         if (demoData[i] !== `,`){
-//             cell += demoData[i];
-//             i++
-//         } else {
-//             row.push(cell);
-//             cell = ``;
-//             continue;
-//         }
-//     }  else {
-//         row.push(cell);
-//         cell = ``;
-//         break;
-//     }  
-// }
-// console.log(row);
-
-// // push row to table.
-// table.push(row);
-// // log each row in table.
-// for (i in table); {
-//     console.log(table[i]);
-// }
-
-
-        for (let i in demoData) {
-            if (demoData[i] !== `\n`) {
-                if (demoData[i] !== `,`){
-                    cell += demoData[i];
-                    i++;
-                } else {
-                    row.push(cell);
-                    cell = ``;
-                    i++;
-                    // continue cellLoop;
-                }
-        }  else {
+    // for-in allows index manipulation. Loop runs until end of str.
+for (let i in data) {
+    // store row
+    if (data[i] !== `\n`) {
+        // store 1 cell by adding each str char to cell. increment index of str until delimiter , is met.
+        if (data[i] !== `,`){
+            cell += data[i];
+            i++;
+        // when delimiter is met, store cell in the row array. Then reassign cell to empty str for the next iteration. Increment i to continue parsing data on current row.
+        } else {
             row.push(cell);
             cell = ``;
-            table.push(row);
-            row = [];
-            i ++;
-            continue;
+            i++;
         }
-        } 
+    // when row ends, store last cell to row array. Then reassign cell to empty str for the next iteration. 
+    }  else {
         row.push(cell);
         cell = ``;
+        // Store row item to table array and ressign row to empty array for next iteration. Increment i to continue parsing data on next row.
         table.push(row);
         row = [];
-        console.log(table);
-
-
+        i ++;
+    }
+} 
+// when str ends, store last cell to row array, and store last row to table array. Log table to see rows of data. 
+row.push(cell);
+table.push(row);
+return console.log(table);
+}
